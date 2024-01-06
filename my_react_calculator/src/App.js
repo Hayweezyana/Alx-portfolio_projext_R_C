@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ScientificCalculator from "./ScientificCalculator";
+import AccountingCalculator from "./AccountingCalculator";
+import "./App.css"; // Main CSS file
 
 function App() {
+  const [isScientific, setIsScientific] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const handleLogin = () => {
+    // For simplicity, assume the login is successful
+    setLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setUsername("");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {!isLoggedIn ? (
+        <div className="login-form">
+          <h2>Login</h2>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      ) : (
+        <>
+          <div className="calculator-switch">
+            <button onClick={() => setIsScientific(true)}>Scientific</button>
+            <button onClick={() => setIsScientific(false)}>Accounting</button>
+          </div>
+
+          {isScientific ? <ScientificCalculator /> : <AccountingCalculator />}
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      )}
     </div>
   );
 }
