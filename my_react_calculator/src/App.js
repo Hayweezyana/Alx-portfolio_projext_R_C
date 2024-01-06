@@ -1,46 +1,63 @@
+// App.js
 import React, { useState } from "react";
-import ScientificCalculator from "./ScientificCalculator";
-import AccountingCalculator from "./AccountingCalculator";
+
+import  ScientificCalculator  from "./ScientificCalculator.js";
+import  AccountingCalculator  from "./AccountingCalculator.js";
+import  LoginPage  from "./LoginPage.js";
+import  SignupPage  from "./SignupPage.js";
 import "./App.css"; // Main CSS file
 
 function App() {
   const [isScientific, setIsScientific] = useState(true);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const handleLogin = () => {
-    // For simplicity, assume the login is successful
-    setLoggedIn(true);
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    setLoggedIn(false);
-    setUsername("");
+    setIsLoggedIn(false);
+  };
+
+  const toggleCalculatorType = () => {
+    setIsScientific((prev) => !prev);
+  };
+
+  const toggleSignup = () => {
+    setShowSignup((prev) => !prev);
   };
 
   return (
     <div className="app">
-      {!isLoggedIn ? (
-        <div className="login-form">
-          <h2>Login</h2>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
+      {!isLoggedIn && (
+        <div className="auth-pages">
+          {showSignup ? (
+            <SignupPage toggleSignup={toggleSignup} />
+          ) : (
+            <LoginPage
+              handleLogin={handleLogin}
+              toggleSignup={toggleSignup}
+            />
+          )}
         </div>
-      ) : (
-        <>
+      )}
+
+      {isLoggedIn && (
+        <div>
           <div className="calculator-switch">
-            <button onClick={() => setIsScientific(true)}>Scientific</button>
-            <button onClick={() => setIsScientific(false)}>Accounting</button>
+            <button onClick={toggleCalculatorType}>
+              {isScientific ? "Switch to AccountingCalculator" : "Switch to ScientificCalculator"}
+            </button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
 
-          {isScientific ? <ScientificCalculator /> : <AccountingCalculator />}
-          <button onClick={handleLogout}>Logout</button>
-        </>
+          {isScientific ? (
+            <ScientificCalculator />
+          ) : (
+            <AccountingCalculator />
+          )}
+        </div>
       )}
     </div>
   );
