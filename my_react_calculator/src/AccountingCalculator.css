@@ -3,7 +3,7 @@
 .accounting-calculator {
     width: 300px;
     margin: 20px auto;
-    border: 1px solid #ccc;
+    border: 1px solid #9eb43a;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -11,7 +11,7 @@
   
   .display {
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    border: 1px solid #37df53;
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
@@ -36,6 +36,6 @@
   }
   
   button:hover {
-    background-color: #f0f0f0;
+    background-color: #830c0c;
   }
   

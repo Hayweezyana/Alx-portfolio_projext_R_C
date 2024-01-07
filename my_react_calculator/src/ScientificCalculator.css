@@ -1,0 +1,70 @@
+.scientific-calculator {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: #ecf0f1;
+  }
+  
+  .display {
+    background-color: #ffffff;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .buffer {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .result {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  button {
+    padding: 15px;
+    font-size: 1.2em;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #3498db;
+    color: #ffffff;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  .recent-calculations {
+    margin-top: 20px;
+  }
+  
+  .recent-calculations h2 {
+    color: #3498db;
+    font-size: 1.2em;
+  }
+  
+  .recent-calculations ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .recent-calculations li {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
