@@ -16,6 +16,7 @@ function App() {
       <div className="calculator-switch">
         <button onClick={toggleCalculatorType}>
           {isScientific ? "Switch to AccountingCalculator" : "Switch to ScientificCalculator"}
+        
         </button>
       </div>
 

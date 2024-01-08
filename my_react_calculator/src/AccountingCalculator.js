@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import * as math from "mathjs"; // Import the math library
-
-import "./AccountingCalculator.css"; // Create a new CSS file for styling
+import * as math from "mathjs";
+import "./AccountingCalculator.css";
 
 function AccountingCalculator() {
   const [display, setDisplay] = useState("");
   const [memory, setMemory] = useState(0);
+  const [shouldClear, setShouldClear] = useState(false);
 
   const handleButtonClick = (value) => {
+    if (shouldClear) {
+      // If shouldClear is true, clear the display
+      setDisplay("");
+      setShouldClear(false);
+    }
+
     switch (value) {
       case "=":
         try {
-          const result = math.evaluate(display); // Use mathjs to evaluate expressions
+          const result = math.evaluate(display);
           setDisplay(result.toString());
+          setShouldClear(true);
         } catch (error) {
           setDisplay("Error");
         }
@@ -31,6 +38,7 @@ function AccountingCalculator() {
         break;
       case "MR":
         setDisplay(memory.toString());
+        setShouldClear(true);
         break;
       default:
         setDisplay((prevDisplay) => prevDisplay + value);
@@ -44,7 +52,6 @@ function AccountingCalculator() {
     "1", "2", "3", "-",
     "0", ".", "=", "+",
     "C", "CE", "M+", "M-",
-    "MR"
   ];
 
   return (

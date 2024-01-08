@@ -6,104 +6,93 @@ function ScientificCalculator() {
   const [buffer, setBuffer] = useState("");
   const [result, setResult] = useState("");
   const [recentCalculations, setRecentCalculations] = useState([]);
+  const [resetOnNext, setResetOnNext] = useState(false);
 
   const handleButtonClick = (value) => {
-    try {
-      let expressionToAdd = "";
+    if (resetOnNext) {
+      // Clear the screen if resetOnNext is true
+      setBuffer("");
+      setResult("");
+      setResetOnNext(false);
+    }
 
-      switch (value) {
-        case "=":
-          const calculatedResult = math.evaluate(buffer);
-          setResult(calculatedResult);
-          setRecentCalculations((prevCalculations) => [
-            { expression: buffer, result: calculatedResult },
-            ...prevCalculations,
-          ]);
-          break;
-
-        case "C":
-          setBuffer("");
-          setResult("");
-          break;
-
-        case "CE":
-          setBuffer((prevBuffer) => prevBuffer.slice(0, -1));
-          break;
-
-        case "sqrt":
-          expressionToAdd = "sqrt(";
-          break;
-
-        case "pow":
-          expressionToAdd = "^";
-          break;
-
-        case "cos":
-          expressionToAdd = "cos(";
-          break;
-
-        case "sin":
-          expressionToAdd = "sin(";
-          break;
-
-        case "tan":
-          expressionToAdd = "tan(";
-          break;
-
-        case "cos⁻¹":
-          expressionToAdd = "acos(";
-          break;
-
-        case "sin⁻¹":
-          expressionToAdd = "asin(";
-          break;
-
-        case "tan⁻¹":
-          expressionToAdd = "atan(";
-          break;
-
-        case "log":
-          expressionToAdd = "log(";
-          break;
-
-        case "ln":
-          expressionToAdd = "ln(";
-          break;
-
-        case "exp":
-          expressionToAdd = "exp(";
-          break;
-
-        case "reset":
-          setBuffer("");
-          setResult("");
-          setRecentCalculations([]);
-          break;
-
-        case "pi":
-          expressionToAdd = "pi";
-          break;
-
-        case "c":
-          expressionToAdd = "299792458";
-          break;
-
-        case "mu_0":
-          expressionToAdd = "1.25663706143592e-06";
-          break;
-
-        case "epsilon_0":
-          expressionToAdd = "8.854187817e-12";
-          break;
-
-        default:
-          expressionToAdd = value;
-          break;
+    if (value === "=") {
+      try {
+        const calculatedResult = math.evaluate(buffer);
+        setResult(calculatedResult);
+        setRecentCalculations((prevCalculations) => [
+          { expression: buffer, result: calculatedResult },
+          ...prevCalculations,
+        ]);
+        setResetOnNext(true); // Set resetOnNext to true after evaluating an expression
+      } catch (error) {
+        setResult("Error");
+        setResetOnNext(true);
       }
-
-      setBuffer((prevBuffer) => prevBuffer + expressionToAdd);
-    } catch (error) {
-      setResult("Error");
+    } else if (value === "C") {
+      setBuffer("");
+      setResult("");
+      setResetOnNext(false);
+    } else if (value === "CE") {
+      setBuffer((prevBuffer) => prevBuffer.slice(0, -1));
+      setResetOnNext(false);
+    } else if (value === "sqrt") {
+      setResult(math.sqrt(math.evaluate(buffer)));
+      setResetOnNext(false);
+    } else if (value === "pow") {
+      setResult(math.pow(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "^");
+      setResetOnNext(false);
+    } else if (value === "cos") {
+      setResult(math.cos(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "cos(");
+      setResetOnNext(false);
+    } else if (value === "sin") {
+      setResult(math.sin(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "sin(");
+      setResetOnNext(false);
+    } else if (value === "tan") {
+      setResult(math.tan(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "tan(");
+      setResetOnNext(false);
+    } else if (value === "cos⁻¹") {
+      setResult(math.acos(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "acos(");
+      setResetOnNext(false);
+    } else if (value === "sin⁻¹") {
+      setResult(math.asin(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "asin(");
+      setResetOnNext(false);
+    } else if (value === "tan⁻¹") {
+      setResult(math.atan(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "atan(");
+      setResetOnNext(false);
+    } else if (value === "log") {
+      setResult(math.log(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "log(");
+      setResetOnNext(false);
+    } else if (value === "log⁻¹") {
+      setResult(math.LOG2E(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "log2E(");
+      setResetOnNext(false);
+    } else if (value === "exp") {
+      setResult(math.exp(math.evaluate(buffer)));
+      setBuffer((prevBuffer) => prevBuffer + "exp(");
+      setResetOnNext(false);
+    } else if (value === "reset") {
+      setBuffer("");
+      setResult("");
+      setRecentCalculations([]);
+    } else if (value === "pi") {
+      setBuffer((prevBuffer) => prevBuffer + "3.14159265358979323846");
+    } else if (value === "c") {
+      setBuffer((prevBuffer) => prevBuffer + "299792458");
+    } else if (value === "mu_0") {
+      setBuffer((prevBuffer) => prevBuffer + "1.25663706143592e-06");
+    } else if (value === "epsilon_0") {
+      setBuffer((prevBuffer) => prevBuffer + "8.854187817e-12");
+    } else {
+      setBuffer((prevBuffer) => prevBuffer + value);
     }
   };
 
@@ -118,7 +107,7 @@ function ScientificCalculator() {
         <div className="result">{result}</div>
       </div>
       <div className="buttons">
-        {[1, 2, 3, "+", 4, 5, 6, "-", 7, 8, 9, "*", 0, "/", "="].map((value) => (
+        {[1, 2, 3, "+", 4, 5, 6, "-", 7, 8, 9, "*", 0,".", "/", "="].map((value) => (
           <button key={value} onClick={() => handleButtonClick(value)}>
             {value}
           </button>
@@ -134,8 +123,8 @@ function ScientificCalculator() {
         <button onClick={() => handleButtonClick("sin⁻¹")}>sin⁻¹</button>
         <button onClick={() => handleButtonClick("tan⁻¹")}>tan⁻¹</button>
         <button onClick={() => handleButtonClick("log")}>log</button>
-        <button onClick={() => handleButtonClick("ln")}>ln</button>
-        <button onClick={() => handleButtonClick("exp")}>e</button>
+        <button onClick={() => handleButtonClick("log⁻¹")}>log⁻¹</button>
+        <button onClick={() => handleButtonClick("exp")}>exp</button>
         <button onClick={() => handleButtonClick("reset")}>Reset</button>
         <button onClick={() => handleButtonClick("pi")}>π</button>
         <button onClick={() => handleButtonClick("c")}>c</button>
@@ -156,3 +145,4 @@ function ScientificCalculator() {
 }
 
 export default ScientificCalculator;
+

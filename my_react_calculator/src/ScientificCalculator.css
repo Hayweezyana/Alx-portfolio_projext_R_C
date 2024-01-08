@@ -9,14 +9,21 @@
   }
   
   .display {
+    width: 800%;
+    overflow: hidden;
     background-color: #ffffff;
     border: 2px solid #3498db;
     border-radius: 8px;
     padding: 10px;
+    margin: 0 auto;
     margin-bottom: 20px;
   }
   
-  .buffer {
+  .buffer,
+  .result {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.5em;
     margin-bottom: 10px;
   }
