@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaWhatsapp, FaLinkedin, FaYoutube } from "react-icons/fa";
 import * as math from "mathjs";
 import "./ScientificCalculator.css";
 
@@ -138,7 +139,19 @@ function ScientificCalculator() {
           {recentCalculations.map((calculation, index) => (
             <li key={index}>{`${calculation.expression} = ${calculation.result}`}</li>
           ))}
-        </ul>
+          </ul>
+
+      </div>
+      <div className="social-links">
+        <a href="https://wa.me/message/O7KMBSLAJ3WDM1" target="_blank" rel="noopener noreferrer">
+          <FaWhatsapp />
+        </a>
+        <a href="https://www.linkedin.com/in/ayotunde-a-940316a8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BXIzfOmLrQI6TokQBF2ax2g%3D%3D" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin />
+        </a>
+        <a href="https://youtube.com/@ayotundeadeboyeje9160?si=SmBDzN27lvXwgGOf" target="_blank" rel="noopener noreferrer">
+          <FaYoutube />
+        </a>
       </div>
     </div>
   );
