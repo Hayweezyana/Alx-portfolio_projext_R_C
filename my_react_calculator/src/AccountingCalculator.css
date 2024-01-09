@@ -40,4 +40,9 @@
   button:hover {
     background-color: #830c0c;
   }
+
+  icon {
+    width: 500%;
+    padding: 50px; 
+  }
   
